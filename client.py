@@ -2,6 +2,8 @@ import socket
 import json
 import toml
 import yaml
+import io
+import csv
 
 host = '127.0.0.1'     
 port = 5000           
@@ -34,5 +36,18 @@ socket.send(toml_data_serialized.encode("utf-8"))
 # yaml
 yaml_data_serialized = yaml.dump(data)
 socket.send(yaml_data_serialized.encode("utf-8"))
+
+# csv 
+
+# convert dictionary to csv
+output = io.StringIO()  
+writer = csv.DictWriter(output, fieldnames=data.keys())
+writer.writeheader()  
+writer.writerow(data)  
+
+csv_data_serialized = output.getvalue()
+output.close()
+
+socket.send(csv_data_serialized.encode("utf-8"))
 
 socket.close()

@@ -2,6 +2,8 @@ import socket
 import json
 import toml
 import yaml
+import io
+import csv
 
 host = '127.0.0.1'  
 port = 5000        
@@ -29,5 +31,11 @@ while True:
     yaml_data = conn.recv(1024).decode("utf-8")
     yaml_data_deserialized =  yaml.safe_load(yaml_data)
     print(yaml_data_deserialized)
+
+    # csv
+    csv_data = conn.recv(1024).decode("utf-8")
+    csv_reader = csv.DictReader(io.StringIO(csv_data))  
+    csv_data_desserialized = list(csv_reader)[0] # convert csv back to dictionary 
+    print(csv_data_desserialized)
 
     conn.close()
