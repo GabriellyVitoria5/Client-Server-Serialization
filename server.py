@@ -1,4 +1,5 @@
 import socket
+import json
 
 host = '127.0.0.1'  
 port = 5000        
@@ -11,6 +12,9 @@ print("Server is waiting for connection...")
 while True:
     conn, client = socket.accept()
     print ("Connected by", client)
-    message = conn.recv(1024)
-    print ("Client ", client[0], ": ", message)
+
+    json_data = conn.recv(1024).decode("utf-8")
+    data = json.loads(json_data)
+    print(data)
+
     conn.close()
