@@ -1,6 +1,7 @@
 import socket
 import json
 import toml
+import yaml
 
 host = '127.0.0.1'  
 port = 5000        
@@ -21,7 +22,7 @@ while True:
 
     # toml
     toml_data = conn.recv(1024).decode("utf-8")
-    toml_data_deserialized = json.loads(json_data)
+    toml_data_deserialized = toml.loads(toml_data)
     print(toml_data_deserialized)
 
     conn.close()
