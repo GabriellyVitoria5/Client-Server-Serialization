@@ -4,6 +4,8 @@ import toml
 import yaml
 import io
 import csv
+import xmltodict
+import xml.etree.ElementTree as ET
 
 host = '127.0.0.1'  
 port = 5000        
@@ -38,4 +40,17 @@ while True:
     csv_data_desserialized = list(csv_reader)[0] # convert csv back to dictionary 
     print(csv_data_desserialized)
 
+    # xml
+    xml_data = conn.recv(1024).decode("utf-8")
+
+    # convert xml back to dictionary 
+    root = ET.fromstring(xml_data)
+    xml_data_desserialized = {}
+    for element in root:
+        xml_data_desserialized[element.tag] = element.text
+    
+    print(xml_data_desserialized)
+    
     conn.close()
+
+    

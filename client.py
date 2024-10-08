@@ -4,6 +4,7 @@ import toml
 import yaml
 import io
 import csv
+import dicttoxml
 
 host = '127.0.0.1'     
 port = 5000           
@@ -49,5 +50,9 @@ csv_data_serialized = output.getvalue()
 output.close()
 
 socket.send(csv_data_serialized.encode("utf-8"))
+
+# xml
+xml_data = dicttoxml.dicttoxml(data).decode()
+socket.send(xml_data.encode("utf-8"))
 
 socket.close()
