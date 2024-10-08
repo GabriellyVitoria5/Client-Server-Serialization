@@ -29,4 +29,8 @@ socket.send(json_data_serialized.encode("utf-8"))
 toml_data_serialized = toml.dumps(data)
 socket.send(toml_data_serialized.encode("utf-8"))
 
+# yaml
+yaml_data_serialized = yaml.dump(data)
+socket.send(yaml_data_serialized.encode("utf-8"))
+
 socket.close()

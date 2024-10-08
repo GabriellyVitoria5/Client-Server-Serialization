@@ -25,4 +25,9 @@ while True:
     toml_data_deserialized = toml.loads(toml_data)
     print(toml_data_deserialized)
 
+    # yaml
+    yaml_data = conn.recv(1024).decode("utf-8")
+    yaml_data_deserialized =  yaml.safe_load(yaml_data)
+    print(yaml_data_deserialized)
+
     conn.close()
