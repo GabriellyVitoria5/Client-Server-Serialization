@@ -6,7 +6,7 @@ import yaml
 host = '127.0.0.1'  
 port = 5000        
 socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM) 
-socket.bind((host, port)) # origem
+socket.bind((host, port)) # origin
 socket.listen(0) 
 
 print("Server is waiting for connection...")

@@ -6,9 +6,11 @@ import yaml
 host = '127.0.0.1'     
 port = 5000           
 socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-socket.connect((host, port)) # destino
+socket.connect((host, port)) # destination
 
-print("Inform your credentials below:")
+print("Client", host, "connected to the server on port", port)
+
+print("\nInform your credentials below:")
 name = input("Name: ")
 age = input("Age: ")
 cpf = input("CPF: ")
