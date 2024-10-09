@@ -26,7 +26,7 @@ data = {
     "Message": message
 }
 
-def csv_serialize(data):
+def serialize_csv(data):
     # convert dictionary to csv
     output = io.StringIO()  
     writer = csv.DictWriter(output, fieldnames=data.keys())
@@ -38,25 +38,25 @@ def csv_serialize(data):
 
     return csv_data_serialized
 
-def json_serialize(data):
+def serialize_json(data):
     return json.dumps(data)
 
-def xml_serialize(data):
+def serialize_xml(data):
     return dicttoxml.dicttoxml(data).decode()
 
-def yaml_serialize(data):
+def serialize_yaml(data):
     return yaml.dump(data)
 
-def toml_serialize(data):
+def serialize_toml(data):
     return toml.dumps(data)
 
 def send_message(serialized_format):
     socket.send(serialized_format.encode("utf-8"))
 
-send_message(json_serialize(data))
-send_message(toml_serialize(data))
-send_message(yaml_serialize(data))
-send_message(csv_serialize(data))
-send_message(xml_serialize(data))
+send_message(serialize_json(data))
+send_message(serialize_toml(data))
+send_message(serialize_yaml(data))
+send_message(serialize_csv(data))
+send_message(serialize_xml(data))
 
 socket.close()
