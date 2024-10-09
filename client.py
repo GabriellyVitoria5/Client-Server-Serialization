@@ -26,33 +26,37 @@ data = {
     "Message": message
 }
 
-# json
-json_data_serialized = json.dumps(data)
-socket.send(json_data_serialized.encode("utf-8"))
+def csv_serialize(data):
+    # convert dictionary to csv
+    output = io.StringIO()  
+    writer = csv.DictWriter(output, fieldnames=data.keys())
+    writer.writeheader()  
+    writer.writerow(data)  
 
-# toml
-toml_data_serialized = toml.dumps(data)
-socket.send(toml_data_serialized.encode("utf-8"))
+    csv_data_serialized = output.getvalue()
+    output.close()
 
-# yaml
-yaml_data_serialized = yaml.dump(data)
-socket.send(yaml_data_serialized.encode("utf-8"))
+    return csv_data_serialized
 
-# csv 
+def json_serialize(data):
+    return json.dumps(data)
 
-# convert dictionary to csv
-output = io.StringIO()  
-writer = csv.DictWriter(output, fieldnames=data.keys())
-writer.writeheader()  
-writer.writerow(data)  
+def xml_serialize(data):
+    return dicttoxml.dicttoxml(data).decode()
 
-csv_data_serialized = output.getvalue()
-output.close()
+def yaml_serialize(data):
+    return yaml.dump(data)
 
-socket.send(csv_data_serialized.encode("utf-8"))
+def toml_serialize(data):
+    return toml.dumps(data)
 
-# xml
-xml_data = dicttoxml.dicttoxml(data).decode()
-socket.send(xml_data.encode("utf-8"))
+def send_message(serialized_format):
+    socket.send(serialized_format.encode("utf-8"))
+
+send_message(json_serialize(data))
+send_message(toml_serialize(data))
+send_message(yaml_serialize(data))
+send_message(csv_serialize(data))
+send_message(xml_serialize(data))
 
 socket.close()

@@ -4,7 +4,6 @@ import toml
 import yaml
 import io
 import csv
-import xmltodict
 import xml.etree.ElementTree as ET
 
 host = '127.0.0.1'  
